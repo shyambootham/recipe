@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(email,password)
         user.is_staff = True
         user.is_superuser = True
-        user.save(using=self._db)
+        user.save(using = self._db)
 
         print(user.is_staff, user.is_superuser)
 
@@ -38,7 +38,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     """user in the systems."""
     email= models.EmailField(max_length=255,unique=True)
     name = models.CharField(max_length=255)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)  # Add this field to enable Django to recognize staff users.
 
     objects =UserManager()
 
